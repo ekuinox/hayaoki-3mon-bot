@@ -23,15 +23,15 @@ module.exports = class LineBot extends EventEmitter {
             req.body.events.forEach((event) => {
                 if (event.type == 'message') {
                     if (event.message.type == 'text') {
-                        this.emit('textMessage', event)
+                        this.emit('textMessage', event, message => { this.client.replyMessage(event.replyToken, message) })
                         return
                     }
                     if (event.message.type == 'image') {
-                        this.emit('imageMessage', event)
+                        this.emit('imageMessage', event, message => { this.client.replyMessage(event.replyToken, message) })
                         return
                     }
                     if (event.message.type == 'sticker') {
-                        this.emit('stickerMessage', event)
+                        this.emit('stickerMessage', event, message => { this.client.replyMessage(event.replyToken, message) })
                         return
                     }
                 }
