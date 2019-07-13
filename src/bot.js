@@ -13,6 +13,7 @@ module.exports = class LineBot extends EventEmitter {
             channelAccessToken: accessToken,
             channelSecret: channelSecret
         }
+        this.client = new LineSdk.Client(config)
         this.server = express()
     }
 
