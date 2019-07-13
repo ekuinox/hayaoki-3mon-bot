@@ -7,4 +7,8 @@ const LINE_CHANNEL_SECRET = process.env.LINE_CHANNEL_SECRET
 
 const bot = new Bot(LINE_CHANNEL_ACCESS_TOKEN, LINE_CHANNEL_SECRET)
 
-bot.run()
+bot.on('textMessage', (message, reply) => {
+    reply({ type: 'text', text: message.text })
+})
+
+bot.run('/webhook')
