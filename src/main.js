@@ -1,4 +1,4 @@
-const Bot = require('./bot')
+const Bot = require('./line')
 
 require('dotenv').config()
 
