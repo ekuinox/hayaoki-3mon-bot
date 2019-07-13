@@ -20,23 +20,26 @@ module.exports = class LineBot extends EventEmitter {
     run(path = '/', port = 3000) {
         this.server.post(path, LineSdk.middleware(this.config), (req, res, next) => {
             res.sendStatus(200)
-            req.body.events.forEach((event) => {
+
+            req.body.events.forEach(event => {
+                
                 if (event.type == 'message') {
-                    if (event.message.type == 'text') {
-                        this.emit('textMessage', event, message => { this.client.replyMessage(event.replyToken, message) })
-                        return
+                    const emit = (type, event) => {
+                        this.emit(type, event.message, message => { this.client.replyMessage(event.replyToken, message) }, event)
                     }
-                    if (event.message.type == 'image') {
-                        this.emit('imageMessage', event, message => { this.client.replyMessage(event.replyToken, message) })
-                        return
-                    }
-                    if (event.message.type == 'sticker') {
-                        this.emit('stickerMessage', event, message => { this.client.replyMessage(event.replyToken, message) })
-                        return
-                    }
+
+                    emit((type => {
+                        if (type == 'text') return 'textMessage'
+                        if (type == 'image') return 'imageMessage'
+                        return 'stickerMessage'
+                    })(event.message.type), event)
+                    
+                    return
                 }
+
             })
         })
+
         this.server.listen(port)
     }
 }
