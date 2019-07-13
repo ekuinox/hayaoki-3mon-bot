@@ -1,0 +1,7 @@
+{
+  "name": "hayaoki-3mon-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "lm9 <depkey@me.com>",
+  "license": "MIT"
+}
