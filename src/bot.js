@@ -17,8 +17,8 @@ module.exports = class LineBot extends EventEmitter {
         this.server = express()
     }
 
-    run(port = 3000) {
-        this.server.post('/webhook', LineSdk.middleware(this.config), (req, res, next) => {
+    run(path = '/', port = 3000) {
+        this.server.post(path, LineSdk.middleware(this.config), (req, res, next) => {
             res.sendStatus(200)
             req.body.events.forEach((event) => {
                 if (event.type == 'message') {
