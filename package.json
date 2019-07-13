@@ -3,5 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "lm9 <depkey@me.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@line/bot-sdk": "^6.8.0",
+    "express": "^4.17.1"
+  }
 }
