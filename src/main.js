@@ -70,6 +70,43 @@ bot.on('textMessage', async (message, reply, source) => {
     if (m) {
         const coupon_id = m[1]
 
+        try {
+            const { dataValues: coupon } = await Coupon.findOne({
+                where: {
+                    id: coupon_id
+                }
+            })
+
+            try {
+                const { dataValues } = await User.findOne({where: { id: source.userId }})
+                if (dataValues.coupon_code) return
+            } catch (err) {
+                User.create({
+                    id: source.userId,
+                    woke: false,
+                    coupon_code: Math.floor(Math.random() * 1000)
+                }).then(({ dataValues: user }) => {
+                    reply({ type: 'text', text: 'おっけーおやすみ！！'})
+                    console.log(`${user.id} coupon_code -> ${user.coupon_code}`)
+                })
+                
+                return
+            }
+
+            User.update({
+                id: source.userId,
+                woke: false,
+                coupon_code: Math.floor(Math.random() * 1000)
+            }).then(({ dataValues: user }) => {
+                reply({ type: 'text', text: 'おっけーおやすみ！！'})
+                console.log(`${user.id} coupon_code -> ${user.coupon_code}`)
+            })
+            
+        } catch (err) {
+            return
+        }
+
+        
         reply({ type: 'text', text: `coupon_id => ${coupon_id}`})
 
         return
