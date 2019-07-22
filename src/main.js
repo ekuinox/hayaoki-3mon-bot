@@ -88,7 +88,6 @@ bot.on('textMessage', async (message, reply, source) => {
                     coupon_id: coupon.id
                 }).then(({ dataValues: user }) => {
                     reply({ type: 'text', text: 'おっけーおやすみ！！'})
-                    console.log(`${user.id} coupon_code -> ${user.coupon_code}`)
                 })
                 
                 return
@@ -100,7 +99,6 @@ bot.on('textMessage', async (message, reply, source) => {
                 coupon_id: coupon.id
             }, { where: { id: source.userId }}).then(({ dataValues: user }) => {
                 reply({ type: 'text', text: 'おっけーおやすみ！！'})
-                console.log(`${user.id} coupon_code -> ${user.coupon_code}`)
             })
             
         } catch (err) {
