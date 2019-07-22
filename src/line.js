@@ -25,7 +25,7 @@ module.exports = class LineBot extends EventEmitter {
                 
                 if (event.type == 'message') {
                     const emit = (type, event) => {
-                        this.emit(type, event.message, message => { this.client.replyMessage(event.replyToken, message) }, event)
+                        this.emit(type, event.message, message => { this.client.replyMessage(event.replyToken, message) }, event.source, event)
                     }
 
                     emit((type => {
