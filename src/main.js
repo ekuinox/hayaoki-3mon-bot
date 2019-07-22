@@ -25,28 +25,55 @@ bot.on('textMessage', async (message, reply, source) => {
         Coupon.sync().then(async () => {
 
             const result = await Coupon.findAll()
-            let replyText = 'いまあるクーポンはこちら'
             
             Promise.all(result.map(({ dataValues }) => {
                 const shop_id = dataValues.shop_id
                 const content = dataValues.content
+                const coupon_id = dataValues.id
                 
-                return Shop.findOne({
-                    where: {
-                        id: shop_id
-                    }
-                }).then(({ dataValues }) => {
-                    replyText += `\n${dataValues.name}の${content}`
+                return new Promise((resolve, reject) => {
+                    Shop.findOne({
+                        where: {
+                            id: shop_id
+                        }
+                    }).then(({ dataValues }) => {
+                        resolve({label: `${dataValues.name}の${content}`, text: `select_coupon ${coupon_id}`})
+                    })
                 })
-            })).then(() => {
-                reply({ type: 'text', text: replyText})
+            })).then((result) => {
+                const message = {
+                    type: 'template',
+                    altText: 'this is a buttons template',
+                    template: {
+                        type: 'buttons',
+                        actions: result.map(v => {
+                            return {
+                                type: 'message',
+                                label: v.label,
+                                text: v.text
+                            }
+                        }),
+                    title: 'タイトルです',
+                    text: 'テキストです'
+                  }
+                }
+
+                reply(message)
             })
         })
 
         return
     }
 
-    
+    // クーポンを選択して返す
+    const m = message.text.match(/select_coupon ([0-9]+)/)
+    if (m) {
+        const coupon_id = m[1]
+
+        reply({ type: 'text', text: `coupon_id => ${coupon_id}`})
+
+        return
+    }
 
     reply({ type: 'text', text: 'おい！何にもマッチしないぞ！寝ぼけてんのか！' })
 })
