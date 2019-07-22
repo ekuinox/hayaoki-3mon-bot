@@ -53,8 +53,8 @@ bot.on('textMessage', async (message, reply, source) => {
                                 text: v.text
                             }
                         }),
-                    title: 'タイトルです',
-                    text: 'テキストです'
+                    title: '今あるクーポンはこちら！！！',
+                    text: '選んでね！！'
                   }
                 }
 
