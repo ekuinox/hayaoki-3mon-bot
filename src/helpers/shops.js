@@ -26,3 +26,7 @@ if (subcommand == 'list') {
 
     return
 }
+
+if (subcommand == 'renew_table') {
+    Shop.sync({force: true})
+}

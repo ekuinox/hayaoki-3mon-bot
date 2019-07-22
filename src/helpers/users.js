@@ -16,3 +16,7 @@ if (subcommand == 'show') {
 
     return
 }
+
+if (subcommand == 'renew_table') {
+    User.sync({force: true})
+}

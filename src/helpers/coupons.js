@@ -48,3 +48,7 @@ if (subcommand == 'list') {
 
     return
 }
+
+if (subcommand == 'renew_table') {
+    Coupon.sync({force: true})
+}
