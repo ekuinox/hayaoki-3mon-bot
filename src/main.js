@@ -79,7 +79,7 @@ bot.on('textMessage', async (message, reply, source) => {
 
             try {
                 const { dataValues } = await User.findOne({where: { id: source.userId }})
-                if (dataValues.coupon_code) return
+                if (!dataValues.woke) return
             } catch (err) {
                 User.create({
                     id: source.userId,
