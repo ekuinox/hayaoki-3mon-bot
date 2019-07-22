@@ -84,7 +84,8 @@ bot.on('textMessage', async (message, reply, source) => {
                 User.create({
                     id: source.userId,
                     woke: false,
-                    coupon_code: Math.floor(Math.random() * 1000)
+                    coupon_code: Math.floor(Math.random() * 1000),
+                    coupon_id: coupon.id
                 }).then(({ dataValues: user }) => {
                     reply({ type: 'text', text: 'おっけーおやすみ！！'})
                     console.log(`${user.id} coupon_code -> ${user.coupon_code}`)
