@@ -1,7 +1,7 @@
 {
   "name": "hayaoki-3mon-bot",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./src/main.js",
   "author": "lm9 <depkey@me.com>",
   "license": "MIT",
   "devDependencies": {
@@ -9,5 +9,8 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "sqlite3": "^4.0.9"
+  },
+  "scripts": {
+    "start": "node ./src/main.js"
   }
 }
