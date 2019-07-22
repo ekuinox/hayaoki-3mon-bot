@@ -46,7 +46,9 @@ bot.on('textMessage', async (message, reply, source) => {
         return
     }
 
-    reply({ type: 'text', text: message.text })
+    
+
+    reply({ type: 'text', text: 'おい！何にもマッチしないぞ！寝ぼけてんのか！' })
 })
 
 bot.run('/webhook')
