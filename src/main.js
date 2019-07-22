@@ -105,9 +105,6 @@ bot.on('textMessage', async (message, reply, source) => {
             return
         }
 
-        
-        reply({ type: 'text', text: `coupon_id => ${coupon_id}`})
-
         return
     }
 
@@ -139,7 +136,7 @@ bot.on('textMessage', async (message, reply, source) => {
             }}).then(() => {
                 reply({
                     type: 'text',
-                    text: `よくおきたな！ ${shop.name}に${user.coupon_code}をもっていくといいぞ！`
+                    text: `${user.woke ? '二度寝したのか？' : 'よくおきたな！！'} ${shop.name}に${user.coupon_code}をもっていくといいぞ！`
                 })
             })
 
