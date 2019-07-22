@@ -113,6 +113,45 @@ bot.on('textMessage', async (message, reply, source) => {
         return
     }
 
+    // 起きたよ
+    if (message.text.match(/((起|お)きた|おはよ)/)) {
+        try {
+            const { dataValues: user } = await User.findOne({
+                where: {
+                    id: source.userId
+                }
+            })
+
+            const { dataValues: coupon } = await Coupon.findOne({
+                where: {
+                    id: user.coupon_id
+                }
+            })
+
+            const { dataValues: shop } = await Shop.findOne({
+                where: {
+                    id: coupon.shop_id
+                }
+            })
+
+            User.update({
+                woke: true
+            }, { where: {
+                id: user.id
+            }}).then(() => {
+                reply({
+                    type: 'text',
+                    text: `よくおきたな！ ${shop.name}に${user.coupon_code}をもっていくといいぞ！`
+                })
+            })
+
+        } catch (err) {
+            console.error(err)
+        }
+        
+        return
+    }
+
     reply({ type: 'text', text: 'おい！何にもマッチしないぞ！寝ぼけてんのか！' })
 })
 
